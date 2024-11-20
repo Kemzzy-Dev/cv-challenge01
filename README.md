@@ -1,7 +1,3 @@
-Here’s the updated and fully detailed README with all the additional instructions incorporated:
-
----
-
 # Full-Stack FastAPI and React Template - DevOps November CV Challenge
 
 Welcome to the **Full-Stack FastAPI and React Template** repository! This project serves as a demo application for the **DevOps November Resume Challenge**, where participants will deploy a full-stack application with a **FastAPI** backend and **ReactJS** frontend using **ChakraUI**. Additionally, participants will set up monitoring and logging tools, configure a reverse proxy, and deploy the application to a cloud platform, showcasing their end-to-end DevOps skills.
@@ -160,10 +156,6 @@ Your hosted application will be evaluated based on the following criteria:
      - Reverse proxy routes and configurations.  
 
 ---
-
-**EXPO**
-- To ensure that the services in the Monitoring Stack (e.g., Prometheus, Grafana, cAdvisor, and Loki) are properly routed by the reverse proxy in the Application Stack, both docker-compose.yml files should share the same Docker network. This will enable the reverse proxy in the Application Stack to route traffic to the appropriate services in the Monitoring Stack, despite them being in separate Docker Compose files.
-Additionally, having both stacks on the same Docker network allows cAdvisor to collect container metrics and Promtail to gather logs from the containers in the Application Stack. 
 
 
 Good luck with this Challenge! This is your opportunity to showcase your end-to-end DevOps skills and stand out to potential employers.

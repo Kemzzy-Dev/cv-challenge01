@@ -59,10 +59,10 @@ services:
       - /var/run:/var/run:ro
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.cadvisor.rule=PathPrefix(`/cadvisor`)"
-      - "traefik.http.services.cadvisor.loadbalancer.server.port=8080"
+    # labels:
+    #   - "traefik.enable=true"
+    #   - "traefik.http.routers.cadvisor.rule=PathPrefix(`/cadvisor`)"
+    #   - "traefik.http.services.cadvisor.loadbalancer.server.port=8080"
     networks:
       - app-network 
 

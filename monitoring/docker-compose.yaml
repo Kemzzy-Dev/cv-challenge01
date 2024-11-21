@@ -4,7 +4,7 @@ services:
     image: prom/prometheus:latest
     container_name: prometheus
     volumes:
-      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus/prometheus.yaml:/etc/prometheus/prometheus.yaml
       - prometheus_data:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
@@ -44,7 +44,7 @@ services:
     image: grafana/promtail:latest
     container_name: promtail
     volumes:
-      - ./promtail/config.yml:/etc/promtail/config.yml
+      - ./promtail/config.yaml:/etc/promtail/config.yaml
       - /var/log:/var/log
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
     command: -config.file=/etc/promtail/config.yml

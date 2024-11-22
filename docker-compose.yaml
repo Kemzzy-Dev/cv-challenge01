@@ -10,7 +10,7 @@ services:
       - app-network
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.frontend.rule=PathPrefix(`/`)"
+      - "traefik.http.routers.frontend.rule=Host(`cloud9ine.tech`) && PathPrefix(`/`)"
       - "traefik.http.services.frontend.loadbalancer.server.port=5173"
 
   db:
@@ -59,15 +59,28 @@ services:
     image: traefik:v2.9
     container_name: traefik
     command:
-      - "--api.insecure=true"
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
       - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--api.insecure=true" # Optional: Enables Traefik dashboard
+      - "--certificatesresolvers.myresolver.acme.httpchallenge=true"
+      - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
+      - "--certificatesresolvers.myresolver.acme.email=kemzzy17@gmail.com"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
     ports:
       - "80:80"
-      - "8080:8080"
+      - "443:443"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
+      - "./letsencrypt:/letsencrypt"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik.rule=Host(`traefik.cloud9ine.tech`)"
+      - "traefik.http.routers.traefik.entrypoints=websecure"
+      - "traefik.http.routers.traefik.tls=true"
+      - "traefik.http.routers.traefik.service=api@internal"
+      - "traefik.http.routers.traefik.tls.certresolver=myresolver"
     networks:
       - app-network 
 

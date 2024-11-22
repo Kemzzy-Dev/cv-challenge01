@@ -14,8 +14,8 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.prometheus.rule=PathPrefix(`/prometheus`)"
       - "traefik.http.services.prometheus.loadbalancer.server.port=9090"
-      - "traefik.http.middlewares.prometheus-strip.stripprefix.prefixes=/prometheus"
-      - "traefik.http.routers.prometheus.middlewares=prometheus-strip"
+      #- "traefik.http.middlewares.prometheus-strip.stripprefix.prefixes=/prometheus"
+      #- "traefik.http.routers.prometheus.middlewares=prometheus-strip"
     networks:
       - monitoring-network 
 
@@ -24,7 +24,7 @@ services:
     container_name: grafana
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=admin
-      - GF_SERVER_ROOT_URL=http://localhost/grafana 
+      - GF_SERVER_ROOT_URL=http://cloud9ine.tech/grafana 
       - GF_SERVER_SERVE_FROM_SUB_PATH=true
     volumes:
       - grafana_data:/var/lib/grafana

@@ -53,7 +53,6 @@ services:
       - backend
       - frontend
       - adminer
-      - certbot
 
     networks:
       - frontend-network 
@@ -63,7 +62,7 @@ services:
     volumes:
       - ./certbot/www:/var/www/certbot
       - ./certbot/conf:/etc/letsencrypt
-    command: certonly --webroot -w /var/www/certbot --force-renewal --email kemzzy17@gmail.com -d cloud9ine.tech 
+    command: certonly --webroot -w /var/www/certbot --force-renewal --agree-tos --email kemzzy17@gmail.com -d cloud9ine.tech 
     networks:
       - frontend-network 
  

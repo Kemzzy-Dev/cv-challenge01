@@ -65,6 +65,8 @@ services:
     command: certonly --webroot -w /var/www/certbot --agree-tos --non-interactive --email kemzzy17@gmail.com -d cloud9ine.tech 
     networks:
       - frontend-network 
+    depends_on:
+      - nginx
  
 volumes:
   postgres_data:

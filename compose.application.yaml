@@ -54,8 +54,7 @@ services:
       - frontend
       - adminer
       - certbot
-      - prometheus
-      - grafana
+
     networks:
       - frontend-network 
   

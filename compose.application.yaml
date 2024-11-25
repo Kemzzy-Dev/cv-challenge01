@@ -1,0 +1,70 @@
+
+services:
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    networks:
+      - frontend-network
+
+  db:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postg8000res
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - frontend-network
+
+  backend:
+    build: ./backend
+    container_name: backend
+    env_file:
+      - ./backend/.env
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - frontend-network
+
+  adminer:
+    image: adminer
+    container_name: adminer
+    networks:
+      - frontend-network
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./monitoring/nginx/config.conf:/etc/nginx/nginx.conf
+      - ./certbot/www:/var/www/certbot
+      - ./certbot/conf:/etc/nginx/ssl
+    networks:
+      - frontend-network 
+  
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./certbot/www:/var/www/certbot
+      - ./certbot/conf:/etc/letsencrypt
+    command: certonly --webroot -w /var/www/certbot --force-renewal --email kemzzy17@gmail.com -d cloud9ine.tech 
+    networks:
+      - frontend-network 
+ 
+volumes:
+  postgres_data:
+
+networks:
+  frontend-network:
+    external: 
+      name: application-network

@@ -1,0 +1,15 @@
+services:
+  application:
+    extends:
+      file: compose.application.yaml
+      # service: application
+
+  monitoring:
+    extends:
+      file: ./monitoring/compose.monitoring.yaml
+      # service: monitoring
+
+networks:
+  application-network:
+    name: application-network
+    driver: bridge

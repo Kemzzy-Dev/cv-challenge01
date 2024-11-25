@@ -8,14 +8,8 @@ services:
       - prometheus_data:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yaml'
-      - '--web.external-url=/prometheus'
-      - '--web.route-prefix=/' 
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.prometheus.rule=PathPrefix(`/prometheus`)"
-      - "traefik.http.services.prometheus.loadbalancer.server.port=9090"
-      #- "traefik.http.middlewares.prometheus-strip.stripprefix.prefixes=/prometheus"
-      #- "traefik.http.routers.prometheus.middlewares=prometheus-strip"
+      # - '--web.external-url=/prometheus'
+      # - '--web.route-prefix=/' 
     networks:
       - monitoring-network 
 
@@ -24,14 +18,10 @@ services:
     container_name: grafana
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=admin
-      - GF_SERVER_ROOT_URL=http://cloud9ine.tech/grafana 
+      - GF_SERVER_ROOT_URL=cloud9ine.tech/grafana 
       - GF_SERVER_SERVE_FROM_SUB_PATH=true
     volumes:
       - grafana_data:/var/lib/grafana
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.grafana.rule=PathPrefix(`/grafana`)"
-      - "traefik.http.services.grafana.loadbalancer.server.port=3000"
     networks:
       - monitoring-network 
 
@@ -64,10 +54,6 @@ services:
       - /var/run:/var/run:ro
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
-    # labels:
-    #   - "traefik.enable=true"
-    #   - "traefik.http.routers.cadvisor.rule=PathPrefix(`/cadvisor`)"
-    #   - "traefik.http.services.cadvisor.loadbalancer.server.port=8080"
     networks:
       - monitoring-network 
 
@@ -79,4 +65,4 @@ volumes:
 networks:
   monitoring-network:
     external: 
-      name: app-network
+      name: application-network

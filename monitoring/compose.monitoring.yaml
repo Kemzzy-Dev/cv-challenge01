@@ -8,8 +8,8 @@ services:
       - prometheus_data:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yaml'
-      - '--web.external-url=/prometheus'
-      - '--web.route-prefix=/' 
+      - '--web.external-url=http://cloud9ine.tech/prometheus'
+      - '--web.route-prefix=/prometheus'
     networks:
       - monitoring-network 
 

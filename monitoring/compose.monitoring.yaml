@@ -8,8 +8,8 @@ services:
       - prometheus_data:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yaml'
-      # - '--web.external-url=/prometheus'
-      # - '--web.route-prefix=/' 
+      - '--web.external-url=/prometheus'
+      - '--web.route-prefix=/' 
     networks:
       - monitoring-network 
 
@@ -18,7 +18,7 @@ services:
     container_name: grafana
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=admin
-      - GF_SERVER_ROOT_URL=cloud9ine.tech/grafana 
+      - GF_SERVER_ROOT_URL=/grafana 
       - GF_SERVER_SERVE_FROM_SUB_PATH=true
     volumes:
       - grafana_data:/var/lib/grafana

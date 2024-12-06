@@ -4,6 +4,19 @@ auth_enabled: false
 server:
   http_listen_port: 3100
 
+ingester:
+  lifecycler:
+    # Ring configuration for distributed deployments
+    ring:
+      replication_factor: 1
+      kvstore:
+        store: inmemory
+
+  # Chunk limits
+  max_chunk_age: 1h
+  chunk_idle_period: 15m
+  chunk_target_size: 1536000
+
 common:
   ring:
     instance_addr: 127.0.0.1
